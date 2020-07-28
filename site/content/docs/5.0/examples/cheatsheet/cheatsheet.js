@@ -1,0 +1,34 @@
+(function () {
+  'use strict'
+
+  function setActiveItem(openParent) {
+    var target = window.location.hash
+
+    if (target !== null) {
+      var link = document.querySelector('.bd-aside a[href="' + target + '"]')
+
+      link.classList.add('active')
+
+      // eslint-disable-next-line no-warning-comments
+      // TODO: messing up when new .active parents is already expanded
+      if (openParent === true) {
+        link.parentNode.parentNode.previousElementSibling.click()
+      }
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', function () {
+    setActiveItem(true)
+  })
+
+  window.addEventListener('hashchange', function () {
+    var active = document.querySelector('.bd-aside .active')
+
+    if (active !== null) {
+      active.parentNode.parentNode.previousElementSibling.click()
+      active.classList.remove('active')
+    }
+
+    setActiveItem(false)
+  })
+})()
